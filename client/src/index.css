@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+input[type="text"],
+input[type="passward"],
+input[type="email"] {
+  @apply w-full border my-2 py-2 px-3 rounded-lg;
+}
+
+form button {
+  @apply bg-primary w-full p-2 text-white mt-4 rounded-lg;
+}
