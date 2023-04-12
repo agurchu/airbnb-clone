@@ -1,5 +1,5 @@
-const express = require("express");
 require("dotenv").config();
+const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 
@@ -8,9 +8,7 @@ const app = express();
 app.use(express.json());
 app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 
-const mongoUrl = process.env.MONGO_URL;
-// mongoose.connect(process.env.MONGO_URL);
-console.log(mongoUrl);
+mongoose.connect(process.env.MONGO_URL);
 
 app.get("/test", (req, res) => {
   res.json("test ok");
