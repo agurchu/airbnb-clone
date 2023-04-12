@@ -7,7 +7,7 @@ export default function LoginPage() {
         <h1 className="text-4xl text-center mb-4">Login</h1>
         <form className="mt-4 max-w-md mx-auto  ">
           <input type="email" placeholder="email address" />
-          <input type="passward" placeholder="password" />
+          <input type="password" placeholder="password" />
           <button>Login</button>
           <div className="my-4 text-center text-gray-500">
             Don't have an account yet?{" "}
