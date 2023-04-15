@@ -3,20 +3,19 @@ const router = express.Router();
 const UserCopy = require("../models/user");
 const bcrypt = require("bcrypt");
 
-router.post("/register", async (req, res) => {
-  const bcryptSalt = await bcrypt.genSalt(10);
-  const securePassword = await bcrypt.hash(req.body.password, bcryptSalt);
+router.post("/register", (request, response) => {
+  //   const bcryptSalt = await bcrypt.genSalt(10);
+  //   const securePassword = await bcrypt.hash(req.body.password, bcryptSalt);
 
-  const { name, email } = req.body;
   const signedUpUser = new UserCopy({
-    name,
-    email,
-    password: securePassword,
+    name: request.body.name,
+    email: request.body.email,
+    password: request.body.password,
   });
-  await signedUpUser
+  signedUpUser
     .save()
-    .then((data) => res.json(data))
-    .catch((err) => res.json(err));
+    .then((data) => response.json(data))
+    .catch((err) => response.json(err));
 });
 
 module.exports = router;
