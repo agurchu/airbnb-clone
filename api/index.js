@@ -1,13 +1,9 @@
 const express = require("express");
-const mongoose = require("mongoose");
-const User = require("./models/user");
-const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
-
+const mongoose = require("mongoose");
 const app = express();
+const routeUrIs = require("./routes/routes");
 const cors = require("cors");
-
-const bcryptSalt = bcrypt.genSaltSync(8);
 
 dotenv.config();
 
@@ -22,10 +18,7 @@ async function connect() {
 
 connect();
 
-app.get("/test", (req, res) => {
-  res.json("test ok");
-});
 app.use(express.json());
-app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
-
-app.listen(8000, () => console.log("server is sunning"));
+app.use(cors());
+app.use("/test", routeUrIs);
+app.listen(8000, () => console.log("server is up and running"));

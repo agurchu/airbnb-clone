@@ -15,8 +15,8 @@ router.post("/register", async (req, res) => {
   });
   await signedUpUser
     .save()
-    .then((data) => response.json(data))
-    .catch((err) => response.json(err));
+    .then((data) => res.json(data))
+    .catch((err) => res.json(err));
 });
 
 module.exports = router;
