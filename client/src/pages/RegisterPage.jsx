@@ -7,9 +7,18 @@ export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const registerUser = (ev) => {
+  const registerUser = async (ev) => {
     ev.preventDefault();
-    axios.post("/register", { name, email, password });
+    try {
+      await axios.post("http://localhost:8000/test/register", {
+        name,
+        email,
+        password,
+      });
+      alert("Registration successful, you may login");
+    } catch (error) {
+      alert("Registration failed. Please try again later");
+    }
   };
 
   return (
@@ -18,6 +27,7 @@ export default function RegisterPage() {
         <h1 className="text-4xl text-center mb-4">Register</h1>
         <form className="mt-4 max-w-md mx-auto  " onSubmit={registerUser}>
           <input
+            required
             type="text"
             placeholder="name"
             value={name}
@@ -25,6 +35,7 @@ export default function RegisterPage() {
           />
 
           <input
+            required
             type="email"
             placeholder="email address"
             value={email}
@@ -32,6 +43,7 @@ export default function RegisterPage() {
           />
 
           <input
+            required
             type="password"
             placeholder="password"
             value={password}
