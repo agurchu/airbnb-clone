@@ -19,6 +19,13 @@ async function connect() {
 connect();
 
 app.use(express.json());
-app.use(cors());
+
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Update with the origin of your client-side application
+    credentials: true, // Allow credentials (e.g., cookies, HTTP authentication)
+  })
+);
+
 app.use("/test", routeUrIs);
 app.listen(8000, () => console.log("server is up and running"));
