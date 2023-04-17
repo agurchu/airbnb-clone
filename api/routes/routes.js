@@ -30,16 +30,17 @@ router.post("/register", async (request, response) => {
 router.post("/login", async (request, res) => {
   const { email, password } = request.body;
   const loginUser = await UserCopy.findOne({ email });
+
   if (loginUser) {
     const passOk = bcrypt.compareSync(password, loginUser.password);
     if (passOk) {
       jwt.sign(
-        { email: loginUser.email, id: loginUser._id },
+        { email: loginUser.email, id: loginUser._id, name: loginUser.name },
         jwtSecret,
         {},
         (err, token) => {
           if (err) throw err;
-          res.cookie("token", token).json("Password Ok");
+          res.cookie("token", token).json(loginUser);
         }
       );
     } else {
