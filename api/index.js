@@ -46,5 +46,9 @@ app.get("/profile", (req, res) => {
   }
 });
 
+app.post("/logout", (req, res) => {
+  res.cookie("token", "").json(true);
+});
+
 app.use("/test", routeUrIs);
 app.listen(8000, () => console.log("server is up and running"));
