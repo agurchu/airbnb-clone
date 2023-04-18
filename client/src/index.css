@@ -11,3 +11,12 @@ input[type="email"] {
 form button {
   @apply bg-primary w-full p-2 text-white mt-4 rounded-lg;
 }
+
+.btn__outline {
+  @apply border border-primary capitalize w-full transition-all duration-300 p-2 font-medium text-primary mt-4 rounded-lg;
+}
+
+.btn__outline:hover,
+.btn__outline:focus {
+  @apply bg-primary w-full p-2 text-white mt-4 rounded-lg;
+}
