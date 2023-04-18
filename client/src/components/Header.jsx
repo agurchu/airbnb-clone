@@ -7,7 +7,7 @@ function Header() {
 
   return (
     <header className=" flex justify-between">
-      <a href="#" className="flex items-center ">
+      <Link to="/" className="flex items-center ">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -24,7 +24,7 @@ function Header() {
         </svg>
 
         <span className="font-bold text-xl">airbnb</span>
-      </a>
+      </Link>
       <div className="flex border gap-2 border-gray-300 rounded-full py-2 px-4 shadow-md shadow-gray-200">
         <div>Anywhere</div>
         <div className="border-l border-gray-300 " />
@@ -51,7 +51,7 @@ function Header() {
 
       {/* ================================= User Login ===================== */}
       <Link
-        to={"/login"}
+        to={user ? "/account" : "/login"}
         className="flex border items-center gap-2 border-gray-300 rounded-full py-2 px-4 "
       >
         <svg
