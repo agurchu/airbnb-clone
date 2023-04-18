@@ -8,15 +8,22 @@ input[type="email"] {
   @apply w-full border my-2 py-2 px-3 rounded-lg;
 }
 
-form button {
+.btn-form {
   @apply bg-primary w-full p-2 text-white mt-4 rounded-lg;
+}
+.btn-primary {
+  @apply bg-primary w-full py-2 text-white px-6 rounded-full;
 }
 
 .btn__outline {
-  @apply border border-primary capitalize w-full transition-all duration-300 p-2 font-medium text-primary mt-4 rounded-lg;
+  @apply border border-primary   transition-all duration-300 py-2 px-6 font-medium text-primary rounded-lg;
 }
 
 .btn__outline:hover,
 .btn__outline:focus {
-  @apply bg-primary w-full p-2 text-white mt-4 rounded-lg;
+  @apply bg-primary  text-white;
+}
+
+.text__hover:hover {
+  @apply text-primary;
 }

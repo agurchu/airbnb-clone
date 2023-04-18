@@ -56,7 +56,7 @@ export default function RegisterPage() {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <button>Register</button>
+          <button className="btn-form">Register</button>
           <div className="my-4 text-center text-gray-500">
             Already a member?{" "}
             <Link className="underline text-black" to="/login">

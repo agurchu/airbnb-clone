@@ -52,7 +52,7 @@ export default function LoginPage() {
             value={password}
             onChange={handlePassword}
           />
-          <button>Login</button>
+          <button className="btn-form">Login</button>
           <div className="my-4 text-center text-gray-500">
             Don't have an account yet?{" "}
             <Link className="underline text-black" to="/register">
