@@ -9,6 +9,8 @@ const jwt = require("jsonwebtoken");
 const jwtSecret = "jdfshruioihoiahifdg";
 const UserCopy = require("./models/user");
 const download = require("image-downloader");
+const multer = require("multer");
+const fs = require("fs");
 
 dotenv.config();
 
@@ -25,6 +27,7 @@ connect();
 
 app.use(express.json());
 app.use(cookerParser());
+app.use("/uploads", express.static(__dirname + "/uploads"));
 
 app.use(
   cors({
@@ -51,14 +54,29 @@ app.post("/logout", (req, res) => {
   res.cookie("token", "").json(true);
 });
 
-app.post("upload-by-link", async (req, res) => {
+app.post("/upload-by-link", async (req, res) => {
   const { link } = req.body;
-  const newName = Date.now() + ".jpg";
+  const newName = "photo" + Date.now() + ".jpg";
   await download.image({
     url: link,
     dest: __dirname + "/uploads/" + newName,
   });
-  res.json(__dirname + "/uploads/" + newName);
+  res.json(newName);
+});
+
+const photoMiddleware = multer({ dest: "uploads" });
+app.post("/upload", photoMiddleware.array("photos", 100), (req, res) => {
+  const uploadedFiles = [];
+  for (let i = 0; i < req.files.length; i++) {
+    const { path, originalname } = req.files[i];
+    const parts = originalname.split(".");
+    const ext = parts[parts.length - 1];
+    const newPath = path + "." + ext;
+
+    fs.renameSync(path, newPath);
+    uploadedFiles.push(newPath.replace("uploads\\", ""));
+  }
+  res.json(uploadedFiles);
 });
 
 app.use("/test", routeUrIs);

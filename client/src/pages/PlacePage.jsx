@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import SubHeading from "../components/reusable/SubHeading";
 import Perks from "../components/reusable/Perks";
+import axios from "axios";
 
 export default function PlacePage() {
   const { action } = useParams();
@@ -36,6 +37,36 @@ export default function PlacePage() {
       input: { value: maxGuests, setValue: setMaxGuests },
     },
   ]);
+
+  const addPhotoByLink = async (ev) => {
+    ev.preventDefault();
+    const { data: filename } = await axios.post("/upload-by-link", {
+      link: photoLink,
+    });
+    setAddedPhotos((prev) => {
+      return [...prev, filename];
+    });
+    setPhotoLink("");
+  };
+
+  const uploadPhoto = (ev) => {
+    const files = ev.target.files;
+    const data = new FormData();
+
+    for (let i = 0; i < files.length; i++) {
+      data.append("photos", files[i]);
+    }
+    axios
+      .post("/upload", data, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((res) => {
+        const { data: filenames } = res;
+        setAddedPhotos((prev) => {
+          return [...prev, ...filenames];
+        });
+      });
+  };
 
   return (
     <div>
@@ -94,13 +125,28 @@ export default function PlacePage() {
                 onChange={(e) => setPhotoLink(e.target.value)}
                 placeholder="Add using a link ....jpg"
               />
-              <button className="bg-gray-200 rounded-xl px-4 h-max py-3 font-medium">
+              <button
+                onClick={addPhotoByLink}
+                className="bg-gray-200 rounded-xl px-4 h-max py-3 font-medium"
+              >
                 Add&nbsp;photo
               </button>
             </div>
 
-            <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-              <button className="border flex justify-center gap-1 p-8 rounded-xl text-2xl bg-transparent">
+            <div className="grid gap-2 grid-cols-3 md:grid-cols-4 lg:grid-cols-6 rounded-xl overflow-hidden ">
+              {addedPhotos.length > 0 &&
+                addedPhotos.map((link) => (
+                  <div className="" key={link}>
+                    <img src={"http://localhost:8000/uploads/" + link} alt="" />
+                  </div>
+                ))}{" "}
+              <label className="border cursor-pointer flex items-center justify-center gap-1 p-2 rounded-xl text-2xl bg-transparent">
+                <input
+                  type="file"
+                  multiple
+                  className="hidden"
+                  onChange={uploadPhoto}
+                />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -116,7 +162,7 @@ export default function PlacePage() {
                   />
                 </svg>
                 Upload
-              </button>
+              </label>
             </div>
 
             <SubHeading
