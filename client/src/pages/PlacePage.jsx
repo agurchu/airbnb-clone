@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import SubHeading from "../components/reusable/SubHeading";
 import Perks from "../components/reusable/Perks";
 import PhotoUploader from "../components/PhotoUploader";
+import axios from "axios";
 
 export default function PlacePage() {
   const { action } = useParams();
@@ -35,6 +36,27 @@ export default function PlacePage() {
       input: { value: maxGuests, setValue: setMaxGuests },
     },
   ]);
+  const [redirect, setRedirect] = useState("");
+
+  async function addNewPlace(e) {
+    e.preventDefault();
+    await axios.post("/places", {
+      title,
+      address,
+      addedPhotos,
+      description,
+      perks,
+      extraInfo,
+      checkIn,
+      checkOut,
+      maxGuests,
+    });
+    setRedirect("/account/places");
+  }
+
+  if (redirect) {
+    return <Navigate to={redirect} />;
+  }
 
   return (
     <div>
@@ -64,7 +86,7 @@ export default function PlacePage() {
       )}
       {action === "new" && (
         <div>
-          <form>
+          <form onSubmit={addNewPlace}>
             <SubHeading
               title="Title"
               description=" Title for your place should be short and catchy as in
