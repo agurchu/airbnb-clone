@@ -117,6 +117,17 @@ export default function Perks({ selected, onChange }) {
       ),
     },
   ]);
+
+  const handleCbClick = (ev) => {
+    const { checked, name } = ev.target;
+
+    if (checked) {
+      onChange([...selected, name]);
+    } else {
+      onChange([...selected.filter((selectedName) => selectedName !== name)]);
+    }
+  };
+
   return (
     <div className="grid mt-4 gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
       {perks.map((perk) => (
@@ -124,11 +135,7 @@ export default function Perks({ selected, onChange }) {
           className="border p-4 rounded-xl flex items-center gap-2 cursor-pointer"
           key={perk.name}
         >
-          <input
-            value={selected}
-            onChange={(e) => onChange(e.target.value)}
-            type="checkbox"
-          />
+          <input name={perk.name} onChange={handleCbClick} type="checkbox" />
           {perk.icon} <span>{perk.name}</span>
         </label>
       ))}
