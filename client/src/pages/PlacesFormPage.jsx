@@ -4,6 +4,7 @@ import Perks from "../components/reusable/Perks";
 import PhotoUploader from "../components/PhotoUploader";
 import axios from "axios";
 import AccountNav from "../components/AccountNav";
+import { Navigate } from "react-router-dom";
 
 export default function PlacesFormPage() {
   const [title, setTitle] = useState("");
@@ -35,6 +36,7 @@ export default function PlacesFormPage() {
       input: { value: maxGuests, setValue: setMaxGuests },
     },
   ];
+  const [redirect, setRedirect] = useState(false);
 
   async function addNewPlace(e) {
     e.preventDefault();
@@ -49,6 +51,11 @@ export default function PlacesFormPage() {
       checkOut,
       maxGuests,
     });
+    setRedirect(true);
+  }
+
+  if (redirect) {
+    return <Navigate to={"/account/places"} />;
   }
 
   return (

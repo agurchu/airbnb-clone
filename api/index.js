@@ -81,7 +81,7 @@ app.post("/upload", photoMiddleware.array("photos", 100), (req, res) => {
 });
 
 app.post("/places", (req, res) => {
-  const token = req.cookies;
+  const { token } = req.cookies;
   const {
     title,
     address,
@@ -93,23 +93,25 @@ app.post("/places", (req, res) => {
     checkOut,
     maxGuests,
   } = req.body;
-  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
-    if (err) throw err;
-    const placeDoc = await Place.create({
-      owner: userData.id,
-      title,
-      address,
-      addedPhotos,
-      description,
-      perks,
-      extraInfo,
-      checkIn,
-      checkOut,
-      maxGuests,
-    });
+  if (token) {
+    jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+      if (err) throw err;
+      const placeDoc = await Place.create({
+        owner: userData.id,
+        title,
+        address,
+        addedPhotos,
+        description,
+        perks,
+        extraInfo,
+        checkIn,
+        checkOut,
+        maxGuests,
+      });
 
-    res.json(placeDoc);
-  });
+      res.json(placeDoc);
+    });
+  }
 });
 
 app.use("/test", routeUrIs);

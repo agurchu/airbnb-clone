@@ -1,7 +1,5 @@
-import { useState } from "react";
-
 export default function Perks({ selected, onChange }) {
-  const [perks, setPerks] = useState([
+  const perks = [
     {
       name: "Wifi",
       icon: (
@@ -116,7 +114,7 @@ export default function Perks({ selected, onChange }) {
         </svg>
       ),
     },
-  ]);
+  ];
 
   const handleCbClick = (ev) => {
     const { checked, name } = ev.target;
