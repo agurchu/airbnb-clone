@@ -10,6 +10,7 @@ const jwtSecret = "jdfshruioihoiahifdg";
 const UserCopy = require("./models/user");
 const download = require("image-downloader");
 const multer = require("multer");
+const Place = require("./models/Place");
 const fs = require("fs");
 
 dotenv.config();
@@ -77,6 +78,38 @@ app.post("/upload", photoMiddleware.array("photos", 100), (req, res) => {
     uploadedFiles.push(newPath.replace("uploads\\", ""));
   }
   res.json(uploadedFiles);
+});
+
+app.post("/places", (req, res) => {
+  const token = req.cookies;
+  const {
+    title,
+    address,
+    addedPhotos,
+    description,
+    perks,
+    extraInfo,
+    checkIn,
+    checkOut,
+    maxGuests,
+  } = req.body;
+  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    if (err) throw err;
+    const placeDoc = await Place.create({
+      owner: userData.id,
+      title,
+      address,
+      addedPhotos,
+      description,
+      perks,
+      extraInfo,
+      checkIn,
+      checkOut,
+      maxGuests,
+    });
+
+    res.json(placeDoc);
+  });
 });
 
 app.use("/test", routeUrIs);
