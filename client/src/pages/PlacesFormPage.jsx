@@ -38,7 +38,6 @@ export default function PlacesFormPage() {
   ];
   const [redirect, setRedirect] = useState(false);
   const { id } = useParams();
-  console.log({ id });
 
   useEffect(() => {
     if (!id) {
@@ -58,9 +57,9 @@ export default function PlacesFormPage() {
     });
   }, [id]);
 
-  async function addNewPlace(e) {
+  async function savePlace(e) {
     e.preventDefault();
-    await axios.post("/places", {
+    const placesData = {
       title,
       address,
       addedPhotos,
@@ -70,8 +69,16 @@ export default function PlacesFormPage() {
       checkIn,
       checkOut,
       maxGuests,
-    });
-    setRedirect(true);
+    };
+    if (id) {
+      //update
+      await axios.put("/places", { id, ...placesData });
+      setRedirect(true);
+    } else {
+      // new place
+      await axios.post("/places", placesData);
+      setRedirect(true);
+    }
   }
 
   if (redirect) {
@@ -81,7 +88,7 @@ export default function PlacesFormPage() {
   return (
     <div>
       <AccountNav />
-      <form onSubmit={addNewPlace}>
+      <form onSubmit={savePlace}>
         <SubHeading
           title="Title"
           description=" Title for your place should be short and catchy as in
