@@ -34,11 +34,13 @@ export default function PhotoUploader({ onAddedPhotos, onChange }) {
       });
   };
 
-  function removePhoto(fileName) {
+  function removePhoto(ev, fileName) {
+    ev.preventDefault();
     onChange([...onAddedPhotos.filter((photo) => photo !== fileName)]);
   }
 
-  function selectAsMainPhoto(fileName) {
+  function selectAsMainPhoto(ev, fileName) {
+    ev.preventDefault();
     onChange([
       fileName,
       ...onAddedPhotos.filter((photo) => photo !== fileName),
@@ -72,7 +74,7 @@ export default function PhotoUploader({ onAddedPhotos, onChange }) {
                 alt=""
               />
               <button
-                onClick={() => removePhoto(link)}
+                onClick={(ev) => removePhoto(ev, link)}
                 className="absolute cursor-pointer right-1 bottom-1 text-white bg-black bg-opacity-40 rounded-xl py-1 px-2"
               >
                 <svg
@@ -92,7 +94,7 @@ export default function PhotoUploader({ onAddedPhotos, onChange }) {
               </button>
 
               <button
-                onClick={() => selectAsMainPhoto(link)}
+                onClick={(ev) => selectAsMainPhoto(ev, link)}
                 className="absolute cursor-pointer left-1 bottom-1 text-white bg-black bg-opacity-40 rounded-xl py-1 px-2"
               >
                 {link === onAddedPhotos[0] && (
