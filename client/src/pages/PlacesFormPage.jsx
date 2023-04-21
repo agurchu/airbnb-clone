@@ -44,7 +44,18 @@ export default function PlacesFormPage() {
     if (!id) {
       return;
     }
-    axios.get("/places/" + id);
+    axios.get("/places/" + id).then((response) => {
+      const { data } = response;
+      setAddedPhotos(data.photos);
+      setAddress(data.address);
+      setCheckIn(data.checkIn);
+      setCheckOut(data.checkOut);
+      setDescription(data.description);
+      setExtraInfo(data.extraInfo);
+      setMaxGuests(data.maxGuests);
+      setPerks(data.perks);
+      setTitle(data.title);
+    });
   }, [id]);
 
   async function addNewPlace(e) {

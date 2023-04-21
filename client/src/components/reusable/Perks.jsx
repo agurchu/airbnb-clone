@@ -1,6 +1,7 @@
 export default function Perks({ selected, onChange }) {
   const perks = [
     {
+      checked: selected.includes("Wifi"),
       name: "Wifi",
       icon: (
         <svg
@@ -20,6 +21,7 @@ export default function Perks({ selected, onChange }) {
       ),
     },
     {
+      checked: selected.includes("Free parking spot"),
       name: "Free parking spot",
       icon: (
         <svg
@@ -39,6 +41,7 @@ export default function Perks({ selected, onChange }) {
       ),
     },
     {
+      checked: selected.includes("TV"),
       name: "TV",
       icon: (
         <svg
@@ -58,6 +61,7 @@ export default function Perks({ selected, onChange }) {
       ),
     },
     {
+      checked: selected.includes("Radio"),
       name: "Radio",
       icon: (
         <svg
@@ -77,6 +81,7 @@ export default function Perks({ selected, onChange }) {
       ),
     },
     {
+      checked: selected.includes("Pets"),
       name: "Pets",
       icon: (
         <svg
@@ -96,6 +101,7 @@ export default function Perks({ selected, onChange }) {
       ),
     },
     {
+      checked: selected.includes("Private entrance"),
       name: "Private entrance",
       icon: (
         <svg
@@ -133,7 +139,12 @@ export default function Perks({ selected, onChange }) {
           className="border p-4 rounded-xl flex items-center gap-2 cursor-pointer"
           key={perk.name}
         >
-          <input name={perk.name} onChange={handleCbClick} type="checkbox" />
+          <input
+            checked={perk.checked}
+            name={perk.name}
+            onChange={handleCbClick}
+            type="checkbox"
+          />
           {perk.icon} <span>{perk.name}</span>
         </label>
       ))}
