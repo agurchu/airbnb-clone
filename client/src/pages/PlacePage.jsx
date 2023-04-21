@@ -44,9 +44,13 @@ export default function PlacePage() {
               className="bg-gray-100 p-4 rounded-xl gap-4 flex cursor-pointer"
               key={place._id}
             >
-              <div className="w-32 h-32 grow shrink-0 bg-gray-300">
+              <div className="flex w-32 h-32 grow shrink-0 bg-gray-300">
                 {place.photos.length > 0 && (
-                  <img src={place.photos[0]} alt="" />
+                  <img
+                    className=" object-cover"
+                    src={"http://localhost:8000/uploads/" + place.photos[0]}
+                    alt=""
+                  />
                 )}
               </div>
               <div>
