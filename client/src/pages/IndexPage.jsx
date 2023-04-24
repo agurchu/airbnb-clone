@@ -29,7 +29,7 @@ function IndexPage() {
               {place.title}
             </h3>
             <p>
-              <span className="font-bold">R{place.price}</span> per night
+              <span className="font-bold">R{place.price} ZAR</span> night
             </p>
           </div>
         ))}
