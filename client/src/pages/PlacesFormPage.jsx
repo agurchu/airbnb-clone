@@ -16,6 +16,7 @@ export default function PlacesFormPage() {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [maxGuests, setMaxGuests] = useState(1);
+  const [price, setPrice] = useState(1500);
   const checkTime = [
     {
       title: "Check in time",
@@ -34,6 +35,12 @@ export default function PlacesFormPage() {
       type: "number",
       placeholder: "3",
       input: { value: maxGuests, setValue: setMaxGuests },
+    },
+    {
+      title: "Price per night",
+      type: "number",
+      placeholder: "1500",
+      input: { value: price, setValue: setPrice },
     },
   ];
   const [redirect, setRedirect] = useState(false);
@@ -54,6 +61,7 @@ export default function PlacesFormPage() {
       setMaxGuests(data.maxGuests);
       setPerks(data.perks);
       setTitle(data.title);
+      setPrice(data.price);
     });
   }, [id]);
 
@@ -69,6 +77,7 @@ export default function PlacesFormPage() {
       checkIn,
       checkOut,
       maxGuests,
+      price,
     };
     if (id) {
       //update
@@ -131,7 +140,7 @@ export default function PlacesFormPage() {
           title="Check in & out time"
           description="Add check in and out times, remember to have some time window for cleaning the room between guests"
         />
-        <div className="grid gap-2 sm:grid-cols-3">
+        <div className="grid gap-2 grid-cols-2 md:grid-cols-4">
           {checkTime?.map((check) => (
             <div key={check.title}>
               <h3 className="mt-3 -mb-1">{check.title}</h3>

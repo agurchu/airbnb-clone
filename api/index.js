@@ -12,8 +12,6 @@ const download = require("image-downloader");
 const multer = require("multer");
 const Place = require("./models/Place");
 const fs = require("fs");
-const user = require("./models/user");
-const { log } = require("console");
 
 dotenv.config();
 
@@ -94,6 +92,7 @@ app.post("/places", (req, res) => {
     checkIn,
     checkOut,
     maxGuests,
+    price,
   } = req.body;
   if (token) {
     jwt.verify(token, jwtSecret, {}, async (err, userData) => {
@@ -109,6 +108,7 @@ app.post("/places", (req, res) => {
         checkIn,
         checkOut,
         maxGuests,
+        price,
       });
 
       res.json(placeDoc);
@@ -143,6 +143,7 @@ app.put("/places", async (req, res) => {
     checkIn,
     checkOut,
     maxGuests,
+    price,
   } = req.body;
 
   jwt.verify(token, jwtSecret, {}, async (err, userData) => {
@@ -159,6 +160,7 @@ app.put("/places", async (req, res) => {
         checkIn,
         checkOut,
         maxGuests,
+        price,
       });
       placeDoc.save();
       res.json("ok");
