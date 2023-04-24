@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { UserContext } from "../userContext";
 import { Navigate, useParams } from "react-router-dom";
 import axios from "axios";
-import PlacePage from "./PlacePage";
+import PlacesPage from "./PlacesPage";
 import AccountNav from "../components/AccountNav";
 
 function ProfilePage() {
@@ -44,7 +44,7 @@ function ProfilePage() {
           </button>
         </div>
       )}
-      {subpage === "places" && <PlacePage />}
+      {subpage === "places" && <PlacesPage />}
     </div>
   );
 }
