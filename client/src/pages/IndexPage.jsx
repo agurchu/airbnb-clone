@@ -6,12 +6,7 @@ function IndexPage() {
 
   useEffect(() => {
     axios.get("/places").then((response) => {
-      setPlaces([
-        ...response.data,
-        ...response.data,
-        ...response.data,
-        ...response.data,
-      ]);
+      setPlaces(response.data);
     });
   }, []);
 
@@ -29,8 +24,13 @@ function IndexPage() {
                 />
               )}
             </div>
-            <h2 className="font-medium text-sm truncate ">{place.title}</h2>
-            <h3 className="font-bold ">{place.address}</h3>
+            <h2 className="font-bold ">{place.address}</h2>
+            <h3 className="font-medium text-sm mb-1 text-gray-500">
+              {place.title}
+            </h3>
+            <p>
+              <span className="font-bold">R{place.price}</span> per night
+            </p>
           </div>
         ))}
     </div>
