@@ -33,3 +33,11 @@ textarea {
 .text__hover:hover {
   @apply text-primary;
 }
+
+.gray__btn {
+  transition: all 0.25s;
+}
+
+.gray__btn:hover {
+  @apply bg-gray-100;
+}
