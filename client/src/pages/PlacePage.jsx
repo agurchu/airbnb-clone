@@ -104,6 +104,10 @@ export default function PlacePage() {
           Show all photos
         </button>
       </div>
+      <div className="my-4">
+        <h2 className="mb-2 font-semibold">About the place</h2>
+        {place.description}
+      </div>
     </div>
   );
 }
