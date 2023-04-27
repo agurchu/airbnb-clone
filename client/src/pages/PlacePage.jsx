@@ -66,7 +66,8 @@ export default function PlacePage() {
           <div>
             {place.photos?.[0] && (
               <img
-                className="aspect-square object-cover "
+                onClick={() => setShowAllPhotos(true)}
+                className="aspect-square cursor-pointer object-cover "
                 src={"http://localhost:8000/uploads/" + place.photos[0]}
               />
             )}
@@ -74,13 +75,15 @@ export default function PlacePage() {
           <div className="grid ">
             {place.photos?.[1] && (
               <img
-                className="aspect-square object-cover "
+                onClick={() => setShowAllPhotos(true)}
+                className="aspect-square cursor-pointer object-cover "
                 src={"http://localhost:8000/uploads/" + place.photos[1]}
               />
             )}
             {place.photos?.[2] && (
               <img
-                className="aspect-square object-cover relative top-2"
+                onClick={() => setShowAllPhotos(true)}
+                className="aspect-square cursor-pointer object-cover relative top-2"
                 src={"http://localhost:8000/uploads/" + place.photos[2]}
               />
             )}
@@ -121,7 +124,7 @@ export default function PlacePage() {
       </div>
       <div className="bg-white border-t -mx-8 py-4 px-8">
         <h2 className="mb-1 font-semibold text-xl">About the place</h2>
-        <p className="text-sm text-gray-600 leading-4">{place.extraInfo}</p>
+        <p className="text-sm text-gray-600 leading-5">{place.extraInfo}</p>
       </div>
     </div>
   );
