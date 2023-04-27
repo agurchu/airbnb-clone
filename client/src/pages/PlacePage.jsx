@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import BookingWidget from "../components/reusable/BookingWidget";
 
 export default function PlacePage() {
   const [place, setPlace] = useState(null);
@@ -107,7 +108,7 @@ export default function PlacePage() {
 
       <div className="my-8 grid gap-8 grid-cols-1 md:grid-cols-[2fr_1fr]">
         <div>
-          <div className="mb-8">
+          <div className="mb-4">
             <h2 className="mb-1 font-semibold text-xl">About the place</h2>
             <p className="text-sm ">{place.description}</p>
           </div>
@@ -116,30 +117,11 @@ export default function PlacePage() {
           Check-out: {place.checkOut} <br />
           Max number of guests: {place.maxGuests}
         </div>
-        <div>
-          <div className="bg-white shadow py-2 px-4 rounded-xl ">
-            <p className="text-xl text-center">
-              Price: {place.price} / per night
-            </p>
-            <div className="rounded-xl border mt-4">
-              <div className="flex">
-                <div className=" py-2 px-4 ">
-                  <label>Check in:</label>
-                  <input type="date" />
-                </div>
-                <div className="border-l py-2 px-4">
-                  <label>Check out:</label>
-                  <input type="date" />
-                </div>
-              </div>
-              <div className="py-2 px-4 border-t">
-                <label>Number of guests:</label>
-                <input type="number" value={1} />
-              </div>
-            </div>
-            <button className="btn-primary mt-3">Book this place</button>
-          </div>
-        </div>
+        <BookingWidget place={place} />
+      </div>
+      <div className="bg-white border-t -mx-8 py-4 px-8">
+        <h2 className="mb-1 font-semibold text-xl">About the place</h2>
+        <p className="text-sm text-gray-600 leading-4">{place.extraInfo}</p>
       </div>
     </div>
   );
