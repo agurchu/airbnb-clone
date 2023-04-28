@@ -172,5 +172,10 @@ app.get("/places", async (req, res) => {
   res.json(await Place.find());
 });
 
+app.post("/booking", (req, res) => {
+  const { place, numOfGuests, checkIn, checkOut, name, phone, price } =
+    req.body;
+});
+
 app.use("/test", routeUrIs);
 app.listen(8000, () => console.log("server is up and running"));
