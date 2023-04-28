@@ -173,7 +173,7 @@ app.get("/places", async (req, res) => {
   res.json(await Place.find());
 });
 
-app.post("/booking", (req, res) => {
+app.post("/bookings", (req, res) => {
   const { place, numOfGuests, checkIn, checkOut, name, phone, price } =
     req.body;
 
@@ -185,10 +185,13 @@ app.post("/booking", (req, res) => {
     name,
     phone,
     price,
-  }).then((err, doc) => {
-    if (err) throw err;
-    res.json(doc);
-  });
+  })
+    .then((doc) => {
+      res.json(doc);
+    })
+    .catch((err) => {
+      throw err;
+    });
 });
 
 app.use("/test", routeUrIs);

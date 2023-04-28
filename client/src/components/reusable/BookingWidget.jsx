@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { differenceInCalendarDays } from "date-fns";
+import axios from "axios";
+import { Navigate } from "react-router-dom";
 
 export default function BookingWidget({ place }) {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [numOfGuests, setNumOfGuests] = useState(1);
   const [name, setName] = useState("");
-  const [mobile, setMobile] = useState("");
+  const [phone, setPhone] = useState("");
+  const [redirect, setRedirect] = useState("");
 
   let numOfNights = 0;
   if (checkIn && checkOut) {
@@ -14,6 +17,23 @@ export default function BookingWidget({ place }) {
       new Date(checkOut),
       new Date(checkIn)
     );
+  }
+  const bookPlace = async () => {
+    const response = await axios.post("/bookings", {
+      checkIn,
+      checkOut,
+      numOfGuests,
+      name,
+      phone,
+      price: numOfNights * place.price,
+      place: place._id,
+    });
+    const bookingId = response.data._id;
+    setRedirect(`/account/bookings/${bookingId}`);
+  };
+
+  if (redirect) {
+    return <Navigate to={redirect} />;
   }
 
   return (
@@ -59,13 +79,13 @@ export default function BookingWidget({ place }) {
               <label>Phone number:</label>
               <input
                 type="tel"
-                value={mobile}
-                onChange={(ev) => setMobile(ev.target.value)}
+                value={phone}
+                onChange={(ev) => setPhone(ev.target.value)}
               />
             </div>
           )}
         </div>
-        <button className="btn-primary mt-3">
+        <button onClick={bookPlace} className="btn-primary mt-3">
           Book for
           {numOfNights > 0 && <span> R{numOfNights * place.price}</span>}
         </button>
