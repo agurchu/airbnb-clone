@@ -62,7 +62,7 @@ export default function PlacePage() {
         {place.address}
       </a>
       <div className="relative">
-        <div className="grid gap-2 grid-cols-[2fr_1fr] rounded-xl overflow-hidden mt-6">
+        <div className="grid gap-2 grid-cols-[2fr_1fr] rounded-2xl overflow-hidden mt-6">
           <div>
             {place.photos?.[0] && (
               <img
