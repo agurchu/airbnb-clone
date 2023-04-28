@@ -38,6 +38,16 @@ app.use(
   })
 );
 
+function getUserDataReq(req) {
+  return new Promise((resolve, reject) => {
+    jwt.verify(req.cookies.token, jwtSecret, {}, async (err, userData) => {
+      if (err) throw err;
+      res.json(await Place.find({ owner: id }));
+      resolve(userData);
+    });
+  });
+}
+
 app.get("/profile", (req, res) => {
   const { token } = req.cookies;
   if (token) {
@@ -173,7 +183,8 @@ app.get("/places", async (req, res) => {
   res.json(await Place.find());
 });
 
-app.post("/bookings", (req, res) => {
+app.post("/bookings", async (req, res) => {
+  const userData = await getUserDataReq(req);
   const { place, numOfGuests, checkIn, checkOut, name, phone, price } =
     req.body;
 
@@ -185,6 +196,7 @@ app.post("/bookings", (req, res) => {
     name,
     phone,
     price,
+    user: userData.id,
   })
     .then((doc) => {
       res.json(doc);
@@ -192,6 +204,11 @@ app.post("/bookings", (req, res) => {
     .catch((err) => {
       throw err;
     });
+});
+
+app.get("/bookings", async (req, res) => {
+  const userData = await getUserDataReq(req);
+  res.json(await Booking.find({ user: userData.id }));
 });
 
 app.use("/test", routeUrIs);
