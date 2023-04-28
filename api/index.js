@@ -42,7 +42,7 @@ function getUserDataReq(req) {
   return new Promise((resolve, reject) => {
     jwt.verify(req.cookies.token, jwtSecret, {}, async (err, userData) => {
       if (err) throw err;
-      res.json(await Place.find({ owner: id }));
+
       resolve(userData);
     });
   });
