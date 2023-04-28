@@ -8,3 +8,5 @@ const bookingSchema = new mongoose.Schema({
   phone: { type: String, required: true },
   price: Number,
 });
+
+module.exports = mongoose.model("Booking", bookingSchema);

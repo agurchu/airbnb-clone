@@ -12,6 +12,7 @@ const download = require("image-downloader");
 const multer = require("multer");
 const Place = require("./models/Place");
 const fs = require("fs");
+const Booking = require("./models/Bookings");
 
 dotenv.config();
 
@@ -175,6 +176,19 @@ app.get("/places", async (req, res) => {
 app.post("/booking", (req, res) => {
   const { place, numOfGuests, checkIn, checkOut, name, phone, price } =
     req.body;
+
+  Booking.create({
+    place,
+    numOfGuests,
+    checkIn,
+    checkOut,
+    name,
+    phone,
+    price,
+  }).then((err, doc) => {
+    if (err) throw err;
+    res.json(doc);
+  });
 });
 
 app.use("/test", routeUrIs);
