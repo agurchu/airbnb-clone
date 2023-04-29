@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AddressLink from "../components/reusable/AddressLink";
 import PlaceGallery from "../components/reusable/PlaceGallery";
+import BookingDates from "../components/reusable/BookingDates";
 
 export default function BookingPage() {
   const { id } = useParams();
@@ -26,8 +27,15 @@ export default function BookingPage() {
       <AddressLink className={"my-2 block"}>
         {booking.place.address}
       </AddressLink>
-      <div className="bg-gray-200 p-4 rounded-xl">
-        <h2 className="text-xl">Your Booking Information</h2>
+      <div className="flex justify-between items-center bg-gray-200 p-6 my-6 rounded-xl">
+        <div>
+          <h2 className="text-2xl mb-4">Your Booking Information</h2>
+          <BookingDates booking={booking} />
+        </div>
+        <div className="bg-primary p-6 text-white rounded-xl">
+          <h3>Total price:</h3>{" "}
+          <span className="text-3xl">{booking.price}</span>
+        </div>
       </div>
 
       <PlaceGallery place={booking.place} />

@@ -1,8 +1,8 @@
 import React from "react";
 
-export default function BookingDates({ booking }) {
+export default function BookingDates({ booking, className }) {
   return (
-    <p className="border-t text-gray-600 text-sm flex gap-1 items-center border-gray-200 py-2">
+    <p className={"flex gap-1 " + className}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
