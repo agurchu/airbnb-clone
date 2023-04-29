@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import BookingWidget from "../components/reusable/BookingWidget";
 import PlaceGallery from "../components/reusable/PlaceGallery";
+import AddressLink from "../components/reusable/AddressLink";
 
 export default function PlacePage() {
   const [place, setPlace] = useState(null);
@@ -22,14 +23,7 @@ export default function PlacePage() {
   return (
     <div className="mt-4 bg-gray-50 -mx-8 px-8 py-6 ">
       <h1 className="text-2xl font-semibold">{place.title}</h1>
-      <a
-        className="underline font-semibold block my-2"
-        target="_blank"
-        href={"https://maps.google.com/?q=" + place.address}
-      >
-        {place.address}
-      </a>
-
+      <AddressLink>{place.address}</AddressLink>
       <PlaceGallery place={place} />
 
       <div className="my-8 grid gap-8 grid-cols-1 md:grid-cols-[2fr_1fr]">
