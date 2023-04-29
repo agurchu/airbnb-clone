@@ -27,7 +27,7 @@ export default function BookingPage() {
         {booking.place.address}
       </AddressLink>
       <div className="bg-gray-200 p-4 rounded-xl">
-        <h2>Your Booking Information</h2>
+        <h2 className="text-xl">Your Booking Information</h2>
       </div>
 
       <PlaceGallery place={booking.place} />
