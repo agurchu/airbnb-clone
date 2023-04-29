@@ -6,10 +6,10 @@ export default function PlaceImg({ place, index = 0, className = null }) {
   }
 
   if (!className) {
-    className = "object-cover";
+    className = "object-cover h-full w-full";
   }
   return (
-    <div>
+    <>
       {place.photos.length > 0 && (
         <img
           className={className}
@@ -17,6 +17,6 @@ export default function PlaceImg({ place, index = 0, className = null }) {
           alt=""
         />
       )}
-    </div>
+    </>
   );
 }
