@@ -130,9 +130,9 @@ app.post("/places", (req, res) => {
 app.get("/user-places", (req, res) => {
   const { token } = req.cookies;
   jwt.verify(token, jwtSecret, {}, async (err, userData) => {
-    const { id } = userData;
+    const { _id } = userData;
     if (err) throw err;
-    res.json(await Place.find({ owner: id }));
+    res.json(await Place.find({ owner: _id }));
   });
 });
 
